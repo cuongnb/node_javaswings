@@ -1,8 +1,10 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -23,9 +25,11 @@ public class Main extends JPanel {
 
     private List<Relationship> relationships;
 
-    public Main() {
-        persons = new ArrayList<>();
-        fruits = new ArrayList<>();
+    public Main(List<Person> persons, List<Fruit> fruits) {
+        this.persons = persons;
+        this.fruits = fruits;
+//        persons = new ArrayList<>();
+//        fruits = new ArrayList<>();
         relationships = new ArrayList<>(25);
         baseFont = new Font("Sans Serif", Font.BOLD, 12);
 
@@ -71,41 +75,9 @@ public class Main extends JPanel {
 
         this.setFont(baseFont);
         this.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                for (int i = 0; i < fruits.size(); i++) {
-//                    Paintable p = fruits.get(i);
-//                    if (p.contains(e.getPoint())) {
-//                        // select
-//                        fruits.get(i).setFource(true);
-//                    } else {
-//                        fruits.get(i).setFource(false);
-//                    }
-//                }
-//
-//                for (int i = 0; i < persons.size(); i++) {
-//                    Paintable p = persons.get(i);
-//                    if (p.contains(e.getPoint())) {
-//                        // select
-//                        persons.get(i).setFource(true);
-//                    } else {
-//                        persons.get(i).setFource(false);
-//                    }
-//                }
-//                repaint();
-//            }
 
             @Override
             public void mousePressed(MouseEvent e) {
-//
-//                for (Paintable p : getShapes()) {
-//                    if (p.contains(e.getPoint())) {
-//                        // select
-//                        selectedShape = p;
-//                        offset = new Point2D.Double(e.getX() - p.getBounds().getX(), e.getY() - p.getBounds().getY());
-//                        break;
-//                    }
-//                }
 
                 for (int i = 0; i < fruits.size(); i++) {
                     Paintable p = fruits.get(i);
@@ -130,7 +102,6 @@ public class Main extends JPanel {
                         persons.get(i).setFource(false);
                     }
                 }
-//                repaint();
             }
 
             @Override
@@ -149,6 +120,8 @@ public class Main extends JPanel {
                 repaint();
             }
         });
+
+
     }
 
     @Override
@@ -159,10 +132,15 @@ public class Main extends JPanel {
         for (Relationship relationship : relationships) {
 
             Point2D p1 = new Point2D.Double(relationship.getParent().getBounds().getCenterX(), relationship.getParent().getBounds().getCenterY());
-            Point2D p2 = new Point2D.Double(relationship.getChild().getBounds().getCenterX(), relationship.getChild().getBounds().getCenterY());
+            Point2D p2 = new Point2D.Double(relationship.getChild().getBounds().getX(), relationship.getChild().getBounds().getY());
 
             g2.draw(new Line2D.Double(p1, p2));
-
+            Ellipse2D.Double hole = new Ellipse2D.Double();
+            hole.width = 5;
+            hole.height = 5;
+            hole.x = p2.getX();
+            hole.y = p2.getY();
+            g2.draw(hole);
         }
 
         for (Person p : persons) {
@@ -171,7 +149,6 @@ public class Main extends JPanel {
         for (Fruit f : fruits) {
             f.paint(this, g2);
         }
-
         g2.dispose();
     }
 
@@ -180,19 +157,21 @@ public class Main extends JPanel {
         return new Dimension(W, H);
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame f = new JFrame();
-                f.add(new Main());
-                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                f.pack();
-                f.setLocationRelativeTo(null);
-                f.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                JFrame f = new JFrame();
+//
+//                f.add(new Main());
+//                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                f.pack();
+//                f.setLocationRelativeTo(null);
+//                f.setVisible(true);
+//
+//            }
+//        });
+//    }
 
     protected void relate(Person person, Fruit bubble) {
         relationships.add(new Relationship(person, bubble));
