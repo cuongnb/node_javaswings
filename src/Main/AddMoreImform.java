@@ -86,6 +86,7 @@ public class AddMoreImform extends JFrame implements ActionListener {
                     }
                 }
             }
+            this.dispose();
         }
     }
 }

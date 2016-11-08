@@ -62,34 +62,10 @@ public class AddNode extends JFrame implements ActionListener {
         f.setVisible(true);
     }
 
-    // The application
-    public void calcPercent() {
-//        percent = ((fatGrams * 9.0) / calories) * 100.0;
-        f.repaint();
-    }
 
     public void actionPerformed(ActionEvent evt) {
-//        String userIn;
-//        userIn = tfName.getText();
-//        fatGrams = Integer.parseInt(userIn);
-//
-//        userIn = tfNameParent.getText();
-//        calories = Integer.parseInt(userIn);
-//        calcPercent();
-//        JButton o = (JButton) evt.getSource();
-//        String name = o.getName();
-        if (evt.getActionCommand() == "Ok") {
-            int numberParent = Integer.parseInt(tfNumberParent.getText());
-//            tfNameChild.setText(numberParent + "balaba");
-//            for (int i = 0; i < numberParent; i++) {
-//                JPanel jPanel = new JPanel();
-//                jPanel.add(nameParent);
-//                jPanel.add(tfNameParent);
-//                jPanels.add(jPanel);
-//            }
-            repaint();
 
-        } else if (evt.getActionCommand() == "Next") {
+        if (evt.getActionCommand() == "Next") {
 
             int numberParent = Integer.parseInt(tfNumberParent.getText());
             ArrayList<DrawKeyValue> parent = new ArrayList<>();
@@ -103,6 +79,9 @@ public class AddNode extends JFrame implements ActionListener {
                 outcome.add(new DrawKeyValue("outcone " + i, isCheck));
             }
             ProjectManagement.newNode.name = tfName.getText().toString().trim();
+            tfName.setText("");
+            tfNumberParent.setText("");
+            tfNumberOutcome.setText("");
             AddMoreImform program = new AddMoreImform(parent, outcome);
             program.setSize(300, 225);
             program.setResizable(true);
