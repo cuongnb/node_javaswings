@@ -33,9 +33,6 @@ public class DrawTree extends JPanel {
         this.baseFont = ProjectManagement.baseFont;
 
         String fruit1 = "a";
-        String fruit2 = "b";
-        String fruit3 = "c";
-        String fruit5 = "d";
 
         Node person = new Node(fruit1, baseFont, 150, 50);
         addFruit(person);
