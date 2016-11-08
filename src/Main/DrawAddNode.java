@@ -1,23 +1,19 @@
 package Main;
 
 
-import ObjetDraw.Blabla;
-import ObjetDraw.Fruit;
-import ObjetDraw.Person;
+import ObjetDraw.DrawKeyValue;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by cuongnb on 11/8/16.
  */
-public class MainClass extends JFrame implements ActionListener {
-    private List<Person> persons = new ArrayList<>();
-    private List<Fruit> fruits = new ArrayList<>();
+public class DrawAddNode extends JFrame implements ActionListener {
+
 
     JFrame f = new JFrame();
     JLabel nameNode = new JLabel("Name: ");
@@ -28,7 +24,7 @@ public class MainClass extends JFrame implements ActionListener {
     JTextField tfNumberParent = new JTextField(4);
     JTextField tfNumberOutcome = new JTextField(4);
 
-    JButton doit = new JButton("Do It!");
+    JButton next = new JButton("Next");
     JCheckBox check = new JCheckBox("Leave");
 
     JPanel namePanel = new JPanel();
@@ -36,7 +32,7 @@ public class MainClass extends JFrame implements ActionListener {
     JPanel numberOutcomePanel = new JPanel();
 
 
-    public MainClass() {
+    public DrawAddNode() {
         setTitle("Calories from Fat");
         setLayout(new FlowLayout());
 
@@ -54,13 +50,12 @@ public class MainClass extends JFrame implements ActionListener {
         add(numberNameParentPanel);
         add(numberOutcomePanel);
         add(check);
-        add(doit);
+        add(next);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        doit.addActionListener(this);
+        next.addActionListener(this);
 
-
-        f.add(new Main(persons, fruits));
+        f.add(new DrawTree());
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.pack();
         f.setLocationRelativeTo(null);
@@ -94,22 +89,18 @@ public class MainClass extends JFrame implements ActionListener {
 //            }
             repaint();
 
-        } else if (evt.getActionCommand() == "Do It!") {
-
-//            tfNameChild.setText(" adafdaf");
-            persons.add(new Person("cuongnb", 60, 100));
-            repaint();
+        } else if (evt.getActionCommand() == "Next") {
 
             int numberParent = Integer.parseInt(tfNumberParent.getText());
-            ArrayList<Blabla> parent = new ArrayList<>();
-            ArrayList<Blabla> outcome = new ArrayList<>();
+            ArrayList<DrawKeyValue> parent = new ArrayList<>();
+            ArrayList<DrawKeyValue> outcome = new ArrayList<>();
             for (int i = 0; i < numberParent; i++) {
-                parent.add(new Blabla("parent " + i));
+                parent.add(new DrawKeyValue("parent " + i));
             }
             int numberOutcome = Integer.parseInt(tfNumberOutcome.getText());
             boolean isCheck = check.isSelected();
             for (int i = 0; i < numberOutcome; i++) {
-                outcome.add(new Blabla("outcone " + i, isCheck));
+                outcome.add(new DrawKeyValue("outcone " + i, isCheck));
             }
             AddMoreImform program = new AddMoreImform(parent, outcome);
             program.setSize(300, 225);
@@ -119,7 +110,7 @@ public class MainClass extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        MainClass fatApp = new MainClass();
+        DrawAddNode fatApp = new DrawAddNode();
         fatApp.setSize(300, 225);
         fatApp.setResizable(true);
         fatApp.setVisible(true);

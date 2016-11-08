@@ -1,8 +1,7 @@
 package Main;
 
-import ObjetDraw.Fruit;
+import ObjetDraw.Node;
 import ObjetDraw.Paintable;
-import ObjetDraw.Person;
 import ObjetDraw.Relationship;
 
 import javax.swing.*;
@@ -13,71 +12,44 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by cuongnb on 11/8/16.
  */
-public class Main extends JPanel {
-    private List<Person> persons;
-    private List<Fruit> fruits;
+public class DrawTree extends JPanel {
+    private List<Node> fruits;
+    private List<Relationship> relationships;
     private Point2D offset;
-    private static Font baseFont;
+    private Font baseFont;
     private static final int W = 640;
     private static final int H = 480;
 
     private Paintable selectedShape;
 
-    private List<Relationship> relationships;
+    public DrawTree() {
+        this.fruits = ProjectManagement.fruits;
+        this.relationships = ProjectManagement.relationships;
+        this.baseFont = ProjectManagement.baseFont;
 
-    public Main(List<Person> persons, List<Fruit> fruits) {
-        this.persons = persons;
-        this.fruits = fruits;
-//        persons = new ArrayList<>();
-//        fruits = new ArrayList<>();
-        relationships = new ArrayList<>(25);
-        baseFont = new Font("Sans Serif", Font.BOLD, 12);
+        String fruit1 = "a";
+        String fruit2 = "b";
+        String fruit3 = "c";
+        String fruit5 = "d";
 
-        String person1 = "Jimmy";
-        String person2 = "Sally";
-
-
-        String fruit1 = "Banana";
-        String fruit2 = "Apple";
-        String fruit3 = "Orange";
-        String fruit4 = "Watermelon";
-        String fruit5 = "Pineapple";
-        String fruit6 = "Grapes";
-
-        Person person = new Person(person1, 50, 50);
-        addPerson(person);
-
-        Fruit bubble = new Fruit(fruit1, baseFont, 150, 50);
-        addFruit(bubble);
-        relate(person, bubble);
-        bubble = new Fruit(fruit2, baseFont, 150, 100);
-        addFruit(bubble);
-        relate(person, bubble);
-        bubble = new Fruit(fruit3, baseFont, 150, 150);
-        addFruit(bubble);
-        relate(person, bubble);
-
-        person = new Person(person2, 50, 150);
-        addPerson(person);
-
-        bubble = new Fruit(fruit4, baseFont, 150, 200);
-        addFruit(bubble);
-        relate(person, bubble);
-        bubble = new Fruit(fruit5, baseFont, 150, 250);
-        addFruit(bubble);
-        relate(person, bubble);
-        bubble = new Fruit(fruit6, baseFont, 150, 300);
-        addFruit(bubble);
-        relate(person, bubble);
-        Fruit bubble1 = new Fruit(fruit5, baseFont, 250, 350);
-        addFruit(bubble1);
-        relate(bubble, bubble1);
+        Node person = new Node(fruit1, baseFont, 150, 50);
+        addFruit(person);
+//        Node bubble = new Node(fruit2, baseFont, 150, 100);
+//        addFruit(bubble);
+//        relate(person, bubble);
+//        bubble = new Node(fruit3, baseFont, 150, 150);
+//        addFruit(bubble);
+//        relate(person, bubble);
+//
+//
+//        bubble = new Node(fruit5, baseFont, 150, 250);
+//        addFruit(bubble);
+//        relate(person, bubble);
 
         this.setFont(baseFont);
         this.addMouseListener(new MouseAdapter() {
@@ -94,18 +66,6 @@ public class Main extends JPanel {
                         fruits.get(i).setFource(true);
                     } else {
                         fruits.get(i).setFource(false);
-                    }
-                }
-
-                for (int i = 0; i < persons.size(); i++) {
-                    Paintable p = persons.get(i);
-                    if (p.contains(e.getPoint())) {
-                        // select
-                        selectedShape = p;
-                        offset = new Point2D.Double(e.getX() - p.getBounds().getX(), e.getY() - p.getBounds().getY());
-                        persons.get(i).setFource(true);
-                    } else {
-                        persons.get(i).setFource(false);
                     }
                 }
             }
@@ -126,8 +86,6 @@ public class Main extends JPanel {
                 repaint();
             }
         });
-
-
     }
 
     @Override
@@ -149,10 +107,8 @@ public class Main extends JPanel {
             g2.draw(hole);
         }
 
-        for (Person p : persons) {
-            p.paint(this, g2);
-        }
-        for (Fruit f : fruits) {
+
+        for (Node f : fruits) {
             f.paint(this, g2);
         }
         g2.dispose();
@@ -169,7 +125,7 @@ public class Main extends JPanel {
 //            public void run() {
 //                JFrame f = new JFrame();
 //
-//                f.add(new Main.Main());
+//                f.add(new DrawTree.DrawTree());
 //                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //                f.pack();
 //                f.setLocationRelativeTo(null);
@@ -179,27 +135,10 @@ public class Main extends JPanel {
 //        });
 //    }
 
-    protected void relate(Person person, Fruit bubble) {
-        relationships.add(new Relationship(person, bubble));
-    }
 
-    protected void relate(Fruit person, Fruit bubble) {
-        relationships.add(new Relationship(person, bubble));
-    }
-
-    protected void addFruit(Fruit fruit) {
+    protected void addFruit(Node fruit) {
         fruits.add(fruit);
         repaint();
     }
 
-    protected void addPerson(Person person) {
-        persons.add(person);
-        repaint();
-    }
-
-    protected List<Paintable> getShapes() {
-        ArrayList<Paintable> shapes = new ArrayList<>(fruits);
-        shapes.addAll(persons);
-        return shapes;
-    }
 }

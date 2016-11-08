@@ -1,6 +1,6 @@
 package Main;
 
-import ObjetDraw.Blabla;
+import ObjetDraw.DrawKeyValue;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,16 +13,17 @@ import java.util.ArrayList;
  */
 public class AddMoreImform extends JFrame implements ActionListener {
 
-    ArrayList<Blabla> parent = new ArrayList<>();
-    ArrayList<Blabla> outcome = new ArrayList<>();
+    ArrayList<DrawKeyValue> parent = new ArrayList<>();
+    ArrayList<DrawKeyValue> outcome = new ArrayList<>();
+    JButton showModel = new JButton("Ok");
 
-    public AddMoreImform(ArrayList<Blabla> parent, ArrayList<Blabla> outcome) {
+    public AddMoreImform(ArrayList<DrawKeyValue> parent, ArrayList<DrawKeyValue> outcome) {
         this.parent = parent;
         this.outcome = outcome;
         setTitle("Calories from Fat");
         setLayout(new FlowLayout());
 
-        for (Blabla blabla : parent) {
+        for (DrawKeyValue blabla : parent) {
             JPanel jPanel1 = new JPanel();
             jPanel1.add(blabla.jLabel);
             jPanel1.add(blabla.jTextField);
@@ -30,7 +31,7 @@ public class AddMoreImform extends JFrame implements ActionListener {
         }
 
 
-        for (Blabla blabla : outcome) {
+        for (DrawKeyValue blabla : outcome) {
             JPanel jPanel1 = new JPanel();
             jPanel1.add(blabla.jLabel);
             jPanel1.add(blabla.jTextField);
@@ -40,18 +41,23 @@ public class AddMoreImform extends JFrame implements ActionListener {
             }
             add(jPanel1);
         }
+
+        add(showModel);
+
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        showModel.addActionListener(this);
     }
 
     public static void main(String[] args) {
         int numberParent = 3;
-        ArrayList<Blabla> parent = new ArrayList<>();
-        ArrayList<Blabla> outcome = new ArrayList<>();
+        ArrayList<DrawKeyValue> parent = new ArrayList<>();
+        ArrayList<DrawKeyValue> outcome = new ArrayList<>();
         for (int i = 0; i < numberParent; i++) {
-            parent.add(new Blabla("parent " + i));
+            parent.add(new DrawKeyValue("parent " + i));
         }
         int numberOutcome = 4;
         for (int i = 0; i < numberOutcome; i++) {
-            outcome.add(new Blabla("outcone " + i, false));
+            outcome.add(new DrawKeyValue("outcone " + i, false));
         }
         AddMoreImform program = new AddMoreImform(parent, outcome);
         program.setSize(300, 225);
@@ -60,7 +66,11 @@ public class AddMoreImform extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(ActionEvent evt) {
+        if (evt.getActionCommand() == "Ok") {
+            for (DrawKeyValue keyValue : outcome) {
 
+            }
+        }
     }
 }

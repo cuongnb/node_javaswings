@@ -5,21 +5,25 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
 /**
  * Created by cuongnb on 11/8/16.
  */
-public class Fruit implements Paintable {
+public class Node implements Paintable {
     private static final long serialVersionUID = 1L;
-    int w = 40;
-    int h = 90;
-    String fruit;
-    Font font;
+    int w = 90;
+    int h = 40;
+    public String name;
+    public Font font;
     private Ellipse2D bounds;
     boolean isFource = false;
+    public ArrayList<String> parent = new ArrayList<>();
+    public ArrayList<String> oucomes = new ArrayList<>();
+    public ArrayList<Double> valueComes = new ArrayList<>();
 
-    public Fruit(String fruit, Font font, int x, int y) {
-        this.fruit = fruit;
+    public Node(String fruit, Font font, int x, int y) {
+        this.name = fruit;
         this.font = font;
         //Ellipse2D.Double(double x, double y, double w, double h)
         bounds = new Ellipse2D.Double(x, y, w, h);
@@ -32,7 +36,7 @@ public class Fruit implements Paintable {
         g2.setFont(font);
         FontMetrics fm = g2.getFontMetrics();
         int height = fm.getHeight();
-        int width = fm.stringWidth(fruit);
+        int width = fm.stringWidth(name);
         if (isFource) {
             g2.setColor(Color.RED);
         } else {
@@ -44,7 +48,7 @@ public class Fruit implements Paintable {
 
         double centreX = bounds.getX() + bounds.getWidth() / 2d;
         double centreY = bounds.getY() + bounds.getHeight() / 2d;
-        g2.drawString(fruit, (int) (centreX - width / 2d), (int) (centreY + height / 4d));
+        g2.drawString(name, (int) (centreX - width / 2d), (int) (centreY + height / 4d));
 
         g2.dispose();
     }
@@ -65,12 +69,12 @@ public class Fruit implements Paintable {
         return bounds.getBounds2D();
     }
 
-    public String getFruit() {
-        return fruit;
+    public String getName() {
+        return name;
     }
 
-    public void setFruit(String fruit) {
-        this.fruit = fruit;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Font getFont() {
