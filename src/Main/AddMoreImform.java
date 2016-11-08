@@ -1,6 +1,8 @@
 package Main;
 
 import ObjetDraw.DrawKeyValue;
+import ObjetDraw.Node;
+import ObjetDraw.Relationship;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,19 +27,19 @@ public class AddMoreImform extends JFrame implements ActionListener {
 
         for (DrawKeyValue blabla : parent) {
             JPanel jPanel1 = new JPanel();
-            jPanel1.add(blabla.jLabel);
-            jPanel1.add(blabla.jTextField);
+            jPanel1.add(blabla.jLabelName);
+            jPanel1.add(blabla.jtfName);
             add(jPanel1);
         }
 
 
         for (DrawKeyValue blabla : outcome) {
             JPanel jPanel1 = new JPanel();
-            jPanel1.add(blabla.jLabel);
-            jPanel1.add(blabla.jTextField);
+            jPanel1.add(blabla.jLabelName);
+            jPanel1.add(blabla.jtfName);
             if (blabla.isleave) {
                 jPanel1.add(blabla.sValue);
-                jPanel1.add(blabla.jfLeave);
+                jPanel1.add(blabla.jtfNameLeave);
             }
             add(jPanel1);
         }
@@ -69,7 +71,20 @@ public class AddMoreImform extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         if (evt.getActionCommand() == "Ok") {
             for (DrawKeyValue keyValue : outcome) {
+                ProjectManagement.newNode.oucomes.add(keyValue.jtfName.getText().toString().trim());
+                if (keyValue.isleave) {
+                    ProjectManagement.newNode.valueComes.add(Double.parseDouble(keyValue.jtfNameLeave.getText()));
+                }
+            }
+            ProjectManagement.fruits.add(ProjectManagement.newNode);
+            ProjectManagement.newNode = new Node("NewNote", ProjectManagement.baseFont, 150, 150);
 
+            for (DrawKeyValue keyValue : parent) {
+                for (int i = 0; i < ProjectManagement.fruits.size() - 1; i++) {
+                    if (keyValue.jtfName.getText().trim().toString().equals(ProjectManagement.fruits.get(i).name)) {
+                        ProjectManagement.relationships.add(new Relationship(ProjectManagement.fruits.get(i), ProjectManagement.fruits.get(ProjectManagement.fruits.size() - 1)));
+                    }
+                }
             }
         }
     }

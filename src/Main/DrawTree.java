@@ -96,13 +96,13 @@ public class DrawTree extends JPanel {
         for (Relationship relationship : relationships) {
 
             Point2D p1 = new Point2D.Double(relationship.getParent().getBounds().getCenterX(), relationship.getParent().getBounds().getCenterY());
-            Point2D p2 = new Point2D.Double(relationship.getChild().getBounds().getX(), relationship.getChild().getBounds().getY());
+            Point2D p2 = new Point2D.Double(relationship.getChild().getBounds().getCenterX(), relationship.getChild().getBounds().getY() - 5);
 
             g2.draw(new Line2D.Double(p1, p2));
             Ellipse2D.Double hole = new Ellipse2D.Double();
-            hole.width = 5;
-            hole.height = 5;
-            hole.x = p2.getX();
+            hole.width = 10;
+            hole.height = 10;
+            hole.x = p2.getX() - 5;
             hole.y = p2.getY();
             g2.draw(hole);
         }

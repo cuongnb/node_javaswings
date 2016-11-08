@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by cuongnb on 11/8/16.
  */
-public class DrawAddNode extends JFrame implements ActionListener {
+public class AddNode extends JFrame implements ActionListener {
 
 
     JFrame f = new JFrame();
@@ -32,7 +32,7 @@ public class DrawAddNode extends JFrame implements ActionListener {
     JPanel numberOutcomePanel = new JPanel();
 
 
-    public DrawAddNode() {
+    public AddNode() {
         setTitle("Calories from Fat");
         setLayout(new FlowLayout());
 
@@ -52,11 +52,11 @@ public class DrawAddNode extends JFrame implements ActionListener {
         add(check);
         add(next);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         next.addActionListener(this);
 
         f.add(new DrawTree());
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.pack();
         f.setLocationRelativeTo(null);
         f.setVisible(true);
@@ -102,6 +102,7 @@ public class DrawAddNode extends JFrame implements ActionListener {
             for (int i = 0; i < numberOutcome; i++) {
                 outcome.add(new DrawKeyValue("outcone " + i, isCheck));
             }
+            ProjectManagement.newNode.name = tfName.getText().toString().trim();
             AddMoreImform program = new AddMoreImform(parent, outcome);
             program.setSize(300, 225);
             program.setResizable(true);
@@ -110,7 +111,7 @@ public class DrawAddNode extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        DrawAddNode fatApp = new DrawAddNode();
+        AddNode fatApp = new AddNode();
         fatApp.setSize(300, 225);
         fatApp.setResizable(true);
         fatApp.setVisible(true);
