@@ -1,4 +1,9 @@
+package Main;
+
+
 import ObjetDraw.Blabla;
+import ObjetDraw.Fruit;
+import ObjetDraw.Person;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +20,6 @@ public class MainClass extends JFrame implements ActionListener {
     private List<Fruit> fruits = new ArrayList<>();
 
     JFrame f = new JFrame();
-
     JLabel nameNode = new JLabel("Name: ");
     JLabel numberParent = new JLabel("Number Parent: ");
     JLabel numberOutcome = new JLabel("Number outcome: ");
@@ -31,8 +35,6 @@ public class MainClass extends JFrame implements ActionListener {
     JPanel numberNameParentPanel = new JPanel();
     JPanel numberOutcomePanel = new JPanel();
 
-    ArrayList<Blabla> parent = new ArrayList<>();
-    ArrayList<Blabla> outcome = new ArrayList<>();
 
     public MainClass() {
         setTitle("Calories from Fat");
@@ -97,15 +99,29 @@ public class MainClass extends JFrame implements ActionListener {
 //            tfNameChild.setText(" adafdaf");
             persons.add(new Person("cuongnb", 60, 100));
             repaint();
+
+            int numberParent = Integer.parseInt(tfNumberParent.getText());
+            ArrayList<Blabla> parent = new ArrayList<>();
+            ArrayList<Blabla> outcome = new ArrayList<>();
+            for (int i = 0; i < numberParent; i++) {
+                parent.add(new Blabla("parent " + i));
+            }
+            int numberOutcome = Integer.parseInt(tfNumberOutcome.getText());
+            boolean isCheck = check.isSelected();
+            for (int i = 0; i < numberOutcome; i++) {
+                outcome.add(new Blabla("outcone " + i, isCheck));
+            }
+            AddMoreImform program = new AddMoreImform(parent, outcome);
+            program.setSize(300, 225);
+            program.setResizable(true);
+            program.setVisible(true);
         }
-
-
     }
 
     public static void main(String[] args) {
         MainClass fatApp = new MainClass();
         fatApp.setSize(300, 225);
         fatApp.setResizable(true);
-
+        fatApp.setVisible(true);
     }
 }

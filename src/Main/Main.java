@@ -1,5 +1,11 @@
+package Main;
+
+import ObjetDraw.Fruit;
+import ObjetDraw.Paintable;
+import ObjetDraw.Person;
+import ObjetDraw.Relationship;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -163,7 +169,7 @@ public class Main extends JPanel {
 //            public void run() {
 //                JFrame f = new JFrame();
 //
-//                f.add(new Main());
+//                f.add(new Main.Main());
 //                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //                f.pack();
 //                f.setLocationRelativeTo(null);
